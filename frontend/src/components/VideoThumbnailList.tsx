@@ -62,7 +62,7 @@ const VideoThumbnailList: React.FC = () => {
         </>
       ) : (
         <>
-          <div className="flex flex-wrap h-full justify-start ">
+          <div className="flex flex-wrap h-full justify-start  ">
             {videoThumb.map((data, index) => (
               <Link key={index} to={`detail/${data.videoId}`}>
                 <VideoThumbnail

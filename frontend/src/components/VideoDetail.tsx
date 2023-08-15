@@ -16,17 +16,22 @@ const VideoDetail: React.FC = () => {
       try {
         const apiUrlVideoDetails = `https://backend-gigih-production.up.railway.app/api/video-details/?videoId=${videoId}`;
         const responseVideoDetail = await FetchApi<any>(apiUrlVideoDetails);
-        if (responseVideoDetail) {
-          const urlYoutube = responseVideoDetail.data[0].linkVideo;
-          const urlParams = new URLSearchParams(new URL(urlYoutube).search);
-          const idYoutube = urlParams.get('v');
-          const videoDetailObject = {
-            id: responseVideoDetail.data[0]._id,
-            title: responseVideoDetail.data[0].title,
-            description: responseVideoDetail.data[0].description,
-            linkVideo: idYoutube,
-          };
-          setVideoDetail(videoDetailObject);
+        if (responseVideoDetail && responseVideoDetail.data.length > 0) {
+          const matchingVideo = responseVideoDetail.data.find(
+            (video: any) => video._id === videoId
+          );
+          if (matchingVideo) {
+            const urlYoutube = matchingVideo.linkVideo;
+            const urlParams = new URLSearchParams(new URL(urlYoutube).search);
+            const idYoutube = urlParams.get('v');
+            const videoDetailObject = {
+              id: matchingVideo._id,
+              title: matchingVideo.title,
+              description: matchingVideo.description,
+              linkVideo: idYoutube,
+            };
+            setVideoDetail(videoDetailObject);
+          }
         }
       } catch (error) {
         console.error('Error fetching video detail:', error);

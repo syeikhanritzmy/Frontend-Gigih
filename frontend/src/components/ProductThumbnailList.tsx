@@ -8,7 +8,8 @@ const ProductThumbnailList = () => {
   useEffect(() => {
     async function fetchDataProduct() {
       try {
-        const apiUrlProduct = 'http://localhost:3000/api/products';
+        const apiUrlProduct =
+          'https://backend-gigih-production.up.railway.app/api/products';
         const responseProduct = await FetchApi<any>(apiUrlProduct);
         if (responseProduct) {
           setProduct(responseProduct.data);

@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FetchApi from '../utils/FetchApi';
 import ProductThumbnailList from './ProductThumbnailList';
 
 const VideoDetail: React.FC = () => {
   const { videoId } = useParams<{ videoId: string }>();
   const [videoDetail, setVideoDetail] = useState<any | null>(null);
+  const navigate = useNavigate();
 
+  const handleBackClick = () => {
+    navigate(-1); // Kembali ke halaman sebelumnya
+  };
   useEffect(() => {
     async function fetchVideoDetail() {
       try {
-        const apiUrlVideoDetails = `http://localhost:3000/api/video-details/?videoId=${videoId}`;
+        const apiUrlVideoDetails = `https://backend-gigih-production.up.railway.app/api/video-details/?videoId=${videoId}`;
         const responseVideoDetail = await FetchApi<any>(apiUrlVideoDetails);
         if (responseVideoDetail) {
           const urlYoutube = responseVideoDetail.data[0].linkVideo;
@@ -35,6 +39,15 @@ const VideoDetail: React.FC = () => {
   //
   return (
     <>
+      <div className="w-11/12 m-auto">
+        <button
+          className="bg-green-300 px-4 py-2 uppercase font-semibold"
+          onClick={handleBackClick}
+        >
+          goBack
+        </button>
+      </div>
+
       {videoDetail ? (
         <div className="flex w-full h-full justify-center mt-4">
           <div className="w-11/12 h-[500px] ">

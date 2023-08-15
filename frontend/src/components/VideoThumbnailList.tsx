@@ -5,16 +5,17 @@ import { Link } from 'react-router-dom';
 
 const VideoThumbnailList: React.FC = () => {
   const [videoThumb, setVideoThumb] = useState<any[]>([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function fetchData() {
-      const apiUrl = 'http://localhost:3000/api/video-thumbnails/';
-      const apiUrlVideoDetails = 'http://localhost:3000/api/video-details/';
+      const apiUrl =
+        'https://backend-gigih-production.up.railway.app/api/video-thumbnails/';
+      const apiUrlVideoDetails =
+        'https://backend-gigih-production.up.railway.app/api/video-details/';
 
       try {
         const response = await FetchApi<any>(apiUrl);
         const responseVideoDetail = await FetchApi<any>(apiUrlVideoDetails);
-
 
         if (response && responseVideoDetail) {
           const data = response.data;
@@ -22,17 +23,27 @@ const VideoThumbnailList: React.FC = () => {
 
           const mergedData = data.map((thumbnail: any) => {
             const correspondingVideoDetail = videoDetailData.find(
-              (detail: any) => detail.videoId === thumbnail.videoId
+              (detail: any) => detail._id === thumbnail.videoId
             );
+
+            // Mengambil hanya 5 kata pertama dari deskripsi
+            const descriptionWords = correspondingVideoDetail?.description
+              ? correspondingVideoDetail.description
+                  .split(' ')
+                  .slice(0, 5)
+                  .join(' ')
+              : '';
+
             return {
               videoId: thumbnail.videoId,
               thumbnailUrl: thumbnail.urlImageThumbnail,
               title: correspondingVideoDetail?.title || '',
-              description: correspondingVideoDetail?.description || '',
+              description: descriptionWords,
             };
           });
 
           setVideoThumb(mergedData);
+          setIsLoading(false);
         }
         console.log(videoThumb);
       } catch (error) {
@@ -42,19 +53,29 @@ const VideoThumbnailList: React.FC = () => {
 
     fetchData();
   }, []);
-  console.log(videoThumb);
+
   return (
-    <div className="flex flex-wrap h-full justify-start ">
-      {videoThumb.map((data, index) => (
-        <Link key={index} to={`detail/${data.videoId}`}>
-          <VideoThumbnail
-            imageUrl={data.thumbnailUrl}
-            description={`${data.description}`}
-            title={`${data.title}`}
-          />
-        </Link>
-      ))}
-    </div>
+    <>
+      {isLoading ? (
+        <>
+          <div>Loading ...</div>
+        </>
+      ) : (
+        <>
+          <div className="flex flex-wrap h-full justify-start ">
+            {videoThumb.map((data, index) => (
+              <Link key={index} to={`detail/${data.videoId}`}>
+                <VideoThumbnail
+                  imageUrl={data.thumbnailUrl}
+                  description={`${data.description}`}
+                  title={`${data.title}`}
+                />
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
+    </>
   );
 };
 

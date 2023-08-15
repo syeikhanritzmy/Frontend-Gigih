@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ProductThumbnail from './ProductThumbnail';
 import { Link, useParams } from 'react-router-dom';
 import FetchApi from '../utils/FetchApi';
@@ -10,7 +10,7 @@ const ProductThumbnailList = () => {
   useEffect(() => {
     async function fetchDataProduct() {
       try {
-        const apiUrlVideoDetails = `https://backend-gigih-production.up.railway.app/api/video-details/${videoId}`;
+        const apiUrlVideoDetails = `https://gigih-backend-production.up.railway.app/api/video-details/${videoId}`;
         const apiUrlProduct =
           'https://backend-gigih-production.up.railway.app/api/products';
         console.log(apiUrlVideoDetails);

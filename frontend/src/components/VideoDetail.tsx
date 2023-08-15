@@ -14,7 +14,7 @@ const VideoDetail: React.FC = () => {
   useEffect(() => {
     async function fetchVideoDetail() {
       try {
-        const apiUrlVideoDetails = `https://backend-gigih-production.up.railway.app/api/video-details/?videoId=${videoId}`;
+        const apiUrlVideoDetails = `https://gigih-backend-production.up.railway.app/api/video-details/?videoId=${videoId}`;
         const responseVideoDetail = await FetchApi<any>(apiUrlVideoDetails);
         if (responseVideoDetail && responseVideoDetail.data.length > 0) {
           const matchingVideo = responseVideoDetail.data.find(

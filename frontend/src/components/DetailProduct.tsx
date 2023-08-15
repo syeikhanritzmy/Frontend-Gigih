@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import FetchApi from '../utils/FetchApi';
 
@@ -13,7 +13,7 @@ const DetailProduct = () => {
   useEffect(() => {
     async function fetchProductDetail() {
       try {
-        const apiUrlProductDetail = `https://backend-gigih-production.up.railway.app/api/products/?_id=${_id}`;
+        const apiUrlProductDetail = `https://gigih-backend-production.up.railway.app/api/products/?_id=${_id}`;
 
         const responseProductDetail = await FetchApi<any>(apiUrlProductDetail);
 

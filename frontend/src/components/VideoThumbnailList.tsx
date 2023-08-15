@@ -9,9 +9,9 @@ const VideoThumbnailList: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       const apiUrl =
-        'https://backend-gigih-production.up.railway.app/api/video-thumbnails/';
+        'https://gigih-backend-production.up.railway.app/api/video-thumbnails/';
       const apiUrlVideoDetails =
-        'https://backend-gigih-production.up.railway.app/api/video-details/';
+        'https://gigih-backend-production.up.railway.app/api/video-details/';
 
       try {
         const response = await FetchApi<any>(apiUrl);

@@ -12,7 +12,7 @@ const ProductThumbnailList = () => {
       try {
         const apiUrlVideoDetails = `https://gigih-backend-production.up.railway.app/api/video-details/${videoId}`;
         const apiUrlProduct =
-          'https://backend-gigih-production.up.railway.app/api/products';
+          'https://gigih-backend-production.up.railway.app/api/products';
         console.log(apiUrlVideoDetails);
         const responseProduct = await FetchApi<any>(apiUrlProduct);
         const responseVideoDetails = await FetchApi<any>(apiUrlVideoDetails);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import FetchApi from '../utils/FetchApi';
-import VideoThumbnail, { VideoThumbnailCard } from './VideoThumbnail';
+import VideoThumbnail from './VideoThumbnail';
 import { Link } from 'react-router-dom';
 
 const VideoThumbnailList: React.FC = () => {
